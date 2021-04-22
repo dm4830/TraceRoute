@@ -142,7 +142,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #print("hey")
-                    resolved_host = gethostbyaddr(str(addr[0]))[0]
+                    resolved_host = gethostbyaddr(addr[0])[0]
                     #resolved_host = gethostbyaddr(addr[0])
                     #print("doublehey")
                     #Fill in end
