@@ -86,7 +86,7 @@ def get_route(hostname):
     for ttl in range(1,MAX_HOPS):
         for tries in range(TRIES):
             destAddr = gethostbyname(hostname)
-            #print("destadd", destAddr)
+            print("destadd", destAddr)
             #Fill in start
             icmp_sock = getprotobyname("icmp")
             # Make a raw socket named mySocket
@@ -98,7 +98,7 @@ def get_route(hostname):
                 d = build_packet()
                 #print("host",hostname)
                 mySocket.sendto(d, (hostname, 0))
-                #print("this is host name", hostname)
+                print("sent", hostname)
                 t= time.time()
                 startedSelect = time.time()
                 whatReady = select.select([mySocket], [], [], timeLeft)
@@ -201,8 +201,9 @@ def get_route(hostname):
                 break
             finally:
                 mySocket.close()
-        #print(tracelist2)
+        print(tracelist2)
     return tracelist2
     
+
 
 get_route("www.cnbc.com")
