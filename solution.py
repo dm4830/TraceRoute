@@ -154,14 +154,14 @@ def get_route(hostname):
                     #resolved_host = nslookup(addr)
                     #resolved = gethostbyaddr(inet_ntoa(adress_from_packet))
                     resolved = gethostbyaddr(inet_ntoa(recvPacket[12:16]))
-                    print("resovled", resolved)
+                    #print("resovled", resolved)
                     #print("res", resolved_host)
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
                     #tracelist1.append(ttl)
                     resolved = "hostname not returnable"
-                    print("resovled", resolved)
+                    #print("resovled", resolved)
 
                     #Fill in end
 
