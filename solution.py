@@ -86,7 +86,7 @@ def get_route(hostname):
     for ttl in range(1,MAX_HOPS):
         for tries in range(TRIES):
             destAddr = gethostbyname(hostname)
-            print("destadd", destAddr)
+            #print("destadd", destAddr)
             #Fill in start
             icmp_sock = getprotobyname("icmp")
             # Make a raw socket named mySocket
@@ -98,7 +98,7 @@ def get_route(hostname):
                 d = build_packet()
                 #print("host",hostname)
                 mySocket.sendto(d, (hostname, 0))
-                print("sent", hostname)
+                #print("sent", hostname)
                 t= time.time()
                 startedSelect = time.time()
                 whatReady = select.select([mySocket], [], [], timeLeft)
@@ -141,8 +141,8 @@ def get_route(hostname):
 
                 #Fill in end
                 try: #try to fetch the hostname
-                    #print("hey")
-                    resolved_host = gethostbyaddr(addr[0])[0]
+                    #print("check", gethostbyaddr(addr[0]))
+                    resolved_host = gethostbyaddr(addr[0])
                     #resolved_host = gethostbyaddr(addr[0])
                     #print("doublehey")
                     #Fill in end
@@ -182,7 +182,6 @@ def get_route(hostname):
                     tracelist1.append(ttl)
                     tracelist1.append(calc_time + "ms")
                     tracelist1.append(addr[0])
-                    #tracelist1.append(addr[0])
                     tracelist2.append(tracelist1)
                     return tracelist2
                     #You should add your responses to your lists here and return your list if your destination IP is met
