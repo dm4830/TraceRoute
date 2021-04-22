@@ -143,11 +143,8 @@ def get_route(hostname):
                 try: #try to fetch the hostname
                     #print("check", gethostbyaddr(addr[0]))
                     resolved_host = gethostbyaddr(addr[0])
-                    #resolved_host = gethostbyaddr(addr[0])
-                    #print("doublehey")
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
-                    #print("here")
                     #Fill in start
                     tracelist1.append(ttl)
                     tracelist1.append("hostname not returnable")
@@ -200,7 +197,7 @@ def get_route(hostname):
                 break
             finally:
                 mySocket.close()
-        print(tracelist2)
+        #print(tracelist2)
     return tracelist2
     
 
