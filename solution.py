@@ -6,9 +6,11 @@ import time
 import select
 import binascii
 
-def nslookup(address):
-    return gethostbyaddr((address)[0])
-
+#def nslookup(address):
+ #   print("addr", address)
+    #return str(gethostbyaddr((address)[0]))
+ #   print(inet_ntoa(address))
+ #   return inet_ntoa(address)
 
 ICMP_ECHO_REQUEST = 8
 MAX_HOPS = 30
@@ -141,26 +143,36 @@ def get_route(hostname):
                 icmp_header = recvPacket [20:28]
                 types, code, checksum, pkt_id, seq = struct.unpack(struct_format,icmp_header)
                 calc_time = int((timeReceived-t)*1000)
+                #resolved = gethostbyaddr(inet_ntoa(recvPacket[12:16]))
+                #print("resovled", resolved)
 
+
+                #ip = recvPacket[12:16]
+                #adress_from_packet = struct.pack('!I',ip)
                 #Fill in end
                 try: #try to fetch the hostname
-                    resolved_host = nslookup(addr)
-                    print("res", resolved_host)
+                    #resolved_host = nslookup(addr)
+                    #resolved = gethostbyaddr(inet_ntoa(adress_from_packet))
+                    resolved = gethostbyaddr(inet_ntoa(recvPacket[12:16]))
+                    print("resovled", resolved)
+                    #print("res", resolved_host)
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
                     #tracelist1.append(ttl)
-                    tracelist1.append("hostname not returnable")
+                    resolved = "hostname not returnable"
+                    print("resovled", resolved)
+
                     #Fill in end
 
                 if types == 11:
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
-                    #tracelist1.append(ttl)
+                    tracelist1.append(ttl)
                     tracelist1.append(str(int((timeReceived - t)*1000))+"ms")
-                    tracelist1.append(addr[0])
-                    tracelist1.append(resolved_host)
+                    tracelist1.append(str(addr[0]))
+                    tracelist1.append(resolved)
                     tracelist2.append(tracelist1)
                     #You should add your responses to your lists here
                     #Fill in end
@@ -168,10 +180,10 @@ def get_route(hostname):
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
-                    #tracelist1.append(ttl)
+                    tracelist1.append(ttl)
                     tracelist1.append(str(int((timeReceived - t)*1000))+"ms")
-                    tracelist1.append(addr[0])
-                    tracelist1.append(resolved_host)
+                    tracelist1.append(str(addr[0]))
+                    tracelist1.append(str(resolved))
                     tracelist2.append(tracelist1)
                     #You should add your responses to your lists here 
                     #Fill in end
@@ -179,10 +191,10 @@ def get_route(hostname):
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
-                    #tracelist1.append(ttl)
+                    tracelist1.append(ttl)
                     tracelist1.append(str(int((timeReceived - t)*1000))+"ms")
-                    tracelist1.append(addr[0])
-                    tracelist1.append(resolved_host)
+                    tracelist1.append(str(addr[0]))
+                    tracelist1.append(str(resolved))
                     tracelist2.append(tracelist1)
                     return tracelist2
                     #You should add your responses to your lists here and return your list if your destination IP is met
@@ -201,9 +213,9 @@ def get_route(hostname):
                 break
             finally:
                 mySocket.close()
-        #print(tracelist2)
+        print(tracelist2)
     return tracelist2
     
 
 
-get_route("www.foxnews.com")
+get_route("www.cnn.com")
