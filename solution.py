@@ -73,7 +73,6 @@ def build_packet():
 
 
     packet = header + data
-    #print("pkt", packet)
     return packet
 
 
@@ -102,7 +101,6 @@ def get_route(hostname):
                 #print("this is host name", hostname)
                 t= time.time()
                 startedSelect = time.time()
-                #print("mysoc", mySocket)
                 whatReady = select.select([mySocket], [], [], timeLeft)
                 #print("whatReady", whatReady)
                 howLongInSelect = (time.time() - startedSelect)
@@ -144,7 +142,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #print("hey")
-                    resolved_host = gethostbyaddr(addr[0])[0]
+                    resolved_host = gethostbyaddr(str(addr[0]))[0]
                     #resolved_host = gethostbyaddr(addr[0])
                     #print("doublehey")
                     #Fill in end
@@ -183,10 +181,9 @@ def get_route(hostname):
                     #Fill in start
                     tracelist1.append(ttl)
                     tracelist1.append(calc_time + "ms")
+                    tracelist1.append(addr[0])
                     #tracelist1.append(addr[0])
-                    tracelist1.append(destAddr)
                     tracelist2.append(tracelist1)
-                    return tracelist2
                     #You should add your responses to your lists here and return your list if your destination IP is met
                     #Fill in end
                 else:
